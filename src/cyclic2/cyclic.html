@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      table {
+        border: 1px solid blue;
+      }
+      td {
+        border: 1px solid green;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="cyclic.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Enter the number of nodes:</p>
+    <input type="number" id="noOfNodes" /><br /><br />
+    <div>
+      <button id="genTable" onclick="generateTable()">
+        Generate the matrix of connectivity!
+      </button>
+      <p id="tableInstr" style="visibility: hidden;">
+        Click on the radio button when the appropriate row and column element
+        are connected
+      </p>
+    </div>
+    <table id="nodes"></table>
+    <button
+      onclick="checkIfIsCyclic()"
+      id="checkBtn"
+      style="visibility: hidden;"
+    >
+      Check whether the graph is cyclic
+    </button>
+    <div id="getRes"></div>
+  </body>
+</html>

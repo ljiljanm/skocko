@@ -1,0 +1,17 @@
+.clear-button {
+  display: flex;
+  font-family: monospace;
+  user-select: none;
+  height: 2em;
+  flex: 1;
+  justify-content: center;
+  background-color: #c5c3cd;
+  align-items: center;
+  font-weight: bold;
+  outline: 1px solid #888;
+  font-size: 3.5em;
+}
+.clear-button:active {
+  color: #fff;
+  background-color: #aaa;
+}

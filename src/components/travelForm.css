@@ -1,0 +1,15 @@
+form {
+  margin: 0 auto;
+  width: 400px;
+}
+h1,
+h2,
+h3 {
+  margin: 0 auto;
+  text-align: center;
+}
+#submitted {
+  margin: 0 auto;
+  width: 400px;
+  background-color: #ccf;
+}

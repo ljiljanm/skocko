@@ -1,0 +1,30 @@
+span {
+  background-color: #339;
+  color: #ffa;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 17px;
+}
+.spanStyle {
+  color: #aaf;
+  background-color: #333;
+}
+
+.cl0 {
+  border: 2px solid red;
+  background-color: yellow;
+}
+.cl2 {
+  border: 3px solid yellow;
+  color: white;
+}
+.cl1 {
+  border: 2px solid pink;
+}
+input:invalid {
+  border: 1px solid red;
+  font-weight: bold;
+}
+input:invalid:focus {
+  background-color: orange;
+}
