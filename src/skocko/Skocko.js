@@ -207,7 +207,7 @@ class Skocko extends React.Component {
         <pre>{JSON.stringify(this.state.solutionChecked)}</pre>
         <pre>{JSON.stringify(this.state.arrayOfSolutions)}</pre>
         <pre>{JSON.stringify(this.state.oneLineGuess)}</pre>
-        <pre>{JSON.stringify(this.state.imgArray)}</pre> */}
+        */}
       </div>
     );
   }
