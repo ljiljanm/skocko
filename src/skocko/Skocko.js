@@ -9,6 +9,7 @@ import Guess from "./Guess";
 import confirm from "./confirm.png";
 import imgArray from "./imgArray.js";
 import oneLineGuess from "./oneLineGuess.js";
+import { ConfirmButton, SignContainer, GuessingContainer } from './Skocko.skin';
 
 class Skocko extends React.Component {
   state = {
@@ -105,9 +106,15 @@ class Skocko extends React.Component {
     console.log(noOfFlavours);
     noOfGreys = 4 - noOfReds - noOfYellows;
     let displayResult = [];
-    for (let i = 0; i < noOfReds; i++) displayResult.push(1);
-    for (let i = 0; i < noOfYellows; i++) displayResult.push(2);
-    for (let i = 0; i < noOfGreys; i++) displayResult.push(3);
+    for (let i = 0; i < noOfReds; i++) {
+      displayResult.push(1);
+    }
+    for (let i = 0; i < noOfYellows; i++) {
+      displayResult.push(2);
+    }
+    for (let i = 0; i < noOfGreys; i++){
+       displayResult.push(3);
+    }
     oneLineGuess[rowCounter] = displayResult;
     rowCounter++;
 
@@ -132,19 +139,17 @@ class Skocko extends React.Component {
         <button className="startGame" onClick={this.showContainer}>
           Start Game
         </button>
-        <div style={this.state.containerStyle} className="guessingContainer">
+        <GuessingContainer style={this.state.containerStyle}>
           <div>{generateGuesses}</div>
           <div className="confirmBtn">
-            {/* Placing confirm button */}
-            <img
-              width="35px"
+            <ConfirmButton
               src={confirm}
               alt="confirm"
               onClick={this.checkSolution}
             />
           </div>{" "}
           {/* CARD SIGNS   */}
-          <div className="signContainer">
+          <SignContainer>
             <div
               className="signs"
               id="smiley"
@@ -187,8 +192,8 @@ class Skocko extends React.Component {
             >
               <img src={star} alt="star" />
             </div>
-          </div>
-        </div>
+          </SignContainer>
+        </GuessingContainer>
         <pre>{JSON.stringify(this.state.positionCounter)}</pre>
         <pre>{JSON.stringify(this.state.rowCounter)}</pre>
         <pre>{JSON.stringify(this.state.solutionChecked)}</pre>
