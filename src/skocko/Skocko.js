@@ -9,7 +9,12 @@ import Guess from "./Guess";
 import confirm from "./confirm.png";
 import imgArray from "./imgArray.js";
 import oneLineGuess from "./oneLineGuess.js";
-import { ConfirmButton, SignContainer, GuessingContainer } from './Skocko.skin';
+import {
+  ConfirmButton,
+  SignContainer,
+  GuessingContainer,
+  Signs,
+} from "./Skocko.skin";
 
 class Skocko extends React.Component {
   state = {
@@ -30,7 +35,7 @@ class Skocko extends React.Component {
   };
 
   putGif = (img, imgNo) => {
-    let { imgArray, rowCounter, positionCounter, solutionChecked } = this.state;
+    let { imgArray, rowCounter, positionCounter } = this.state;
     console.log(positionCounter);
 
     if (positionCounter <= 3) {
@@ -71,6 +76,7 @@ class Skocko extends React.Component {
     });
     let usersGuess = imgArray[rowCounter].map((item) => item.imgNo);
     let noOfReds = 0;
+    let noOfRedsAndYellows = 0;
     let noOfYellows = 0;
     let noOfGreys = 4;
 
@@ -83,26 +89,28 @@ class Skocko extends React.Component {
         }
       }
     }
-    console.log(noOfFlavours);
-    for (let i = 0; i < 4; i++) {
-      if (arrayOfSolutions[i] === usersGuess[i]) {
-        noOfReds++;
-        noOfFlavours[arrayOfSolutions[i] - 1]--;
-      }
-    }
-    console.log(noOfFlavours);
+    let usedArrayOfsolutions = new Array(4).fill(0);
+    let usedUsersGuess = new Array(4).fill(0);
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
         if (
-          i !== j &&
           arrayOfSolutions[i] === usersGuess[j] &&
-          noOfFlavours[arrayOfSolutions[i] - 1] > 0
+          usedArrayOfsolutions[i] === 0 &&
+          usedUsersGuess[j] === 0
         ) {
-          noOfYellows++;
-          noOfFlavours[arrayOfSolutions[i] - 1]--;
+          noOfRedsAndYellows++;
+          usedArrayOfsolutions[j] = 1;
+          usedUsersGuess[i] = 1;
+          break;
         }
       }
     }
+    for (let i = 0; i < 4; i++) {
+      if (arrayOfSolutions[i] === usersGuess[i]) {
+        noOfReds++;
+      }
+    }
+    noOfYellows = noOfRedsAndYellows - noOfReds;
     console.log(noOfFlavours);
     noOfGreys = 4 - noOfReds - noOfYellows;
     let displayResult = [];
@@ -112,8 +120,8 @@ class Skocko extends React.Component {
     for (let i = 0; i < noOfYellows; i++) {
       displayResult.push(2);
     }
-    for (let i = 0; i < noOfGreys; i++){
-       displayResult.push(3);
+    for (let i = 0; i < noOfGreys; i++) {
+      displayResult.push(3);
     }
     oneLineGuess[rowCounter] = displayResult;
     rowCounter++;
@@ -150,56 +158,56 @@ class Skocko extends React.Component {
           </div>{" "}
           {/* CARD SIGNS   */}
           <SignContainer>
-            <div
+            <Signs
               className="signs"
               id="smiley"
               onClick={() => this.putGif(smiley, 1)}
             >
               <img src={smiley} alt="smiley" />
-            </div>
-            <div
+            </Signs>
+            <Signs
               className="signs"
               id="tref"
               onClick={() => this.putGif(tref, 2)}
             >
               <img src={tref} alt="tref" />{" "}
-            </div>
-            <div
+            </Signs>
+            <Signs
               className="signs"
               id="leaf"
               onClick={() => this.putGif(leaf, 3)}
             >
               <img src={leaf} alt="leaf" />
-            </div>
-            <div
+            </Signs>
+            <Signs
               className="signs"
               id="heart"
               onClick={() => this.putGif(heart, 4)}
             >
               <img src={heart} alt="heart" />
-            </div>
-            <div
+            </Signs>
+            <Signs
               className="signs"
               id="square"
               onClick={() => this.putGif(square, 5)}
             >
               <img src={square} alt="square" />
-            </div>
-            <div
+            </Signs>
+            <Signs
               className="signs"
               id="star"
               onClick={() => this.putGif(star, 6)}
             >
               <img src={star} alt="star" />
-            </div>
+            </Signs>
           </SignContainer>
         </GuessingContainer>
-        <pre>{JSON.stringify(this.state.positionCounter)}</pre>
+        {/* <pre>{JSON.stringify(this.state.positionCounter)}</pre>
         <pre>{JSON.stringify(this.state.rowCounter)}</pre>
         <pre>{JSON.stringify(this.state.solutionChecked)}</pre>
         <pre>{JSON.stringify(this.state.arrayOfSolutions)}</pre>
         <pre>{JSON.stringify(this.state.oneLineGuess)}</pre>
-        <pre>{JSON.stringify(this.state.imgArray)}</pre>
+        <pre>{JSON.stringify(this.state.imgArray)}</pre> */}
       </div>
     );
   }
