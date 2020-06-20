@@ -24,12 +24,14 @@ class Skocko extends React.Component {
     positionCounter: 0,
     rowCounter: 0,
     imgArray: imgArray,
+    pointsWonStyle: {},
     arrayOfSolutions: ["", "", "", ""],
     imgArrayOfSolutions: ["", "", "", ""],
     solutionChecked: [false, false, false, false, false, false],
     oneLineGuess: oneLineGuess,
     countdownTime: 60,
     timerStyle: { fontWeight: "lighter" },
+    pointsWon: "",
   };
   showContainer = () => {
     let newStyle = { visibility: "visible" };
@@ -170,8 +172,12 @@ class Skocko extends React.Component {
       }
     }
     if (noOfReds === 4) {
+      let pointsWon = rowCounter < 4 ? 15 : rowCounter === 4 ? 10 : 5;
+      pointsWon += " pts";
       this.setState({
         showSolutions: { visibility: "visible" },
+        pointsWonStyle: { opacity: 1 },
+        pointsWon,
       });
     }
     noOfYellows = noOfRedsAndYellows - noOfReds;
@@ -248,6 +254,9 @@ class Skocko extends React.Component {
 
     return (
       <div>
+        <div style={this.state.pointsWonStyle} className="pointsWon">
+          {this.state.pointsWon}
+        </div>
         <button className="startGame" onClick={this.showContainer}>
           Start Game
         </button>
