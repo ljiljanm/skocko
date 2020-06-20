@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const GuessingContainer = styled("div")`
-  background-color: #f56;
+  background-color: #38aef4;
   border-radius: 4px;
   border: 2px solid green;
   margin-top: 15px;

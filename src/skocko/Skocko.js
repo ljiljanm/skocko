@@ -96,7 +96,6 @@ class Skocko extends React.Component {
 
   putGif = (img, imgNo) => {
     let { imgArray, rowCounter, positionCounter, showSolutions } = this.state;
-    // console.log(positionCounter);
 
     if (positionCounter <= 3 && showSolutions.visibility !== "visible") {
       imgArray[rowCounter][positionCounter].img = img;
@@ -108,8 +107,6 @@ class Skocko extends React.Component {
       positionCounter,
       rowCounter,
     });
-    // console.log(positionCounter);
-    // console.log("XXXXXXXX");
   };
 
   componentDidMount() {
@@ -134,14 +131,16 @@ class Skocko extends React.Component {
     this.setState({
       solutionChecked,
     });
-    let usersGuess = imgArray[rowCounter].map((item) => item.imgNo);
+    let usersGuess;
+    if (this.state.showSolutions.visibility !== "visible") {
+      usersGuess = imgArray[rowCounter].map((item) => item.imgNo);
+    }
     let noOfReds = 0;
     let noOfRedsAndYellows = 0;
     let noOfYellows = 0;
     let noOfGreys = 4;
 
     let noOfFlavours = new Array(6).fill(null).map((item) => (item = 0));
-    // console.log(noOfFlavours);
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 4; j++) {
         if (arrayOfSolutions[j] === i + 1) {
@@ -176,12 +175,11 @@ class Skocko extends React.Component {
       pointsWon += " pts";
       this.setState({
         showSolutions: { visibility: "visible" },
-        pointsWonStyle: { opacity: 1 },
+        pointsWonStyle: { opacity: 1, fontSize: "97px" },
         pointsWon,
       });
     }
     noOfYellows = noOfRedsAndYellows - noOfReds;
-    // console.log(noOfFlavours);
     noOfGreys = 4 - noOfReds - noOfYellows;
     let displayResult = [];
     for (let i = 0; i < noOfReds; i++) {
@@ -209,8 +207,6 @@ class Skocko extends React.Component {
   };
   removeRow = () => {
     let { imgArray, rowCounter } = this.state;
-    console.log("Did it");
-    // if (imgArray[rowCounter][3].img !== "") {
     imgArray[rowCounter] = [
       { img: "", imgNo: "" },
       { img: "", imgNo: "" },
@@ -221,7 +217,6 @@ class Skocko extends React.Component {
       imgArray,
       positionCounter: 0,
     });
-    // }
   };
   render() {
     let { imgArrayOfSolutions } = this.state;

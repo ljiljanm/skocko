@@ -13,18 +13,20 @@
   /* visibility: hidden; */
   opacity: 0;
   margin-top: 290px;
-  margin-left: 20px;
-  font-size: 95px;
-  color: red;
+  margin-left: 10px;
+  font-size: 35px;
+  color: yellow;
+  text-shadow: 2px 2px red;
   font-weight: bolder;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-style: italic;
-  transition: opacity 3s;
+  transition: opacity 2.5s;
+  transition: font-size 3s;
 }
 .guessing {
   width: 275px; /* 272       */
   height: 55px;
-  background-color: #f47;
+  /* background-color: #f47; */
   margin: 5px 8px;
 }
 
@@ -42,12 +44,12 @@
 .signs img {
   width: 42px;
   height: 49px;
-  border: 2px solid red;
+  border: 2px solid #48cef4;
 }
 
 .classWithinComp {
   /* background-color: #ddd333; */
-  border: 1px solid green;
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: row;
 }
@@ -57,7 +59,8 @@
   flex-direction: row;
   width: 45px; /*  45 SIRINA  */
   height: 53px;
-  background-color: white;
+  background-color: #45b3f7;
+
   margin-left: 2px;
   margin-top: 1px;
   margin-left: 1px;
