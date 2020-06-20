@@ -10,7 +10,7 @@
 }
 
 .guessing {
-  width: 272px; /* 272       */
+  width: 275px; /* 272       */
   height: 55px;
   background-color: #f47;
   margin: 5px 8px;
@@ -36,7 +36,7 @@
 
 .classWithinComp {
   /* background-color: #ddd333; */
-  border: 1px solid grey;
+  border: 1px solid green;
   display: flex;
   flex-direction: row;
 }
@@ -53,5 +53,10 @@
 }
 .result {
   width: 21px;
+  margin-top: 13px;
   height: 20px;
+}
+
+.result:first-of-type {
+  margin-left: 3px;
 }

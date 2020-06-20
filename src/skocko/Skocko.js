@@ -14,29 +14,69 @@ import {
   SignContainer,
   GuessingContainer,
   Signs,
+  Timer,
 } from "./Skocko.skin";
 
 class Skocko extends React.Component {
   state = {
     containerStyle: { visibility: "hidden" },
+    showSolutions: { visibility: "hidden" },
     positionCounter: 0,
     rowCounter: 0,
-    currentRow: 0,
     imgArray: imgArray,
-    arrayOfSolutions: "",
+    arrayOfSolutions: ["", "", "", ""],
+    imgArrayOfSolutions: ["", "", "", ""],
     solutionChecked: [false, false, false, false, false, false],
     oneLineGuess: oneLineGuess,
+    countdownTime: 60,
   };
   showContainer = () => {
     let newStyle = { visibility: "visible" };
+    let setIntHandler = setInterval(() => {
+      this.setState({
+        countdownTime: this.state.countdownTime - 1,
+      });
+      if (this.state.countdownTime === 0) {
+        clearInterval(setIntHandler);
+      }
+    }, 1000);
     this.setState({
       containerStyle: newStyle,
+    });
+    let { arrayOfSolutions } = this.state;
+    let imgArrayOfSolutions = arrayOfSolutions.map((item) => {
+      switch (item) {
+        case 1:
+          item = smiley;
+          break;
+        case 2:
+          item = tref;
+          break;
+        case 3:
+          item = leaf;
+          break;
+        case 4:
+          item = heart;
+          break;
+        case 5:
+          item = square;
+          break;
+        case 6:
+          item = star;
+          break;
+        default:
+          item = null;
+      }
+      return item;
+    });
+    this.setState({
+      imgArrayOfSolutions,
     });
   };
 
   putGif = (img, imgNo) => {
     let { imgArray, rowCounter, positionCounter } = this.state;
-    console.log(positionCounter);
+    // console.log(positionCounter);
 
     if (positionCounter <= 3) {
       imgArray[rowCounter][positionCounter].img = img;
@@ -48,8 +88,8 @@ class Skocko extends React.Component {
       positionCounter,
       rowCounter,
     });
-    console.log(positionCounter);
-    console.log("XXXXXXXX");
+    // console.log(positionCounter);
+    // console.log("XXXXXXXX");
   };
 
   componentDidMount() {
@@ -81,7 +121,7 @@ class Skocko extends React.Component {
     let noOfGreys = 4;
 
     let noOfFlavours = new Array(6).fill(null).map((item) => (item = 0));
-    console.log(noOfFlavours);
+    // console.log(noOfFlavours);
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 4; j++) {
         if (arrayOfSolutions[j] === i + 1) {
@@ -89,6 +129,7 @@ class Skocko extends React.Component {
         }
       }
     }
+
     let usedArrayOfsolutions = new Array(4).fill(0);
     let usedUsersGuess = new Array(4).fill(0);
     for (let i = 0; i < 4; i++) {
@@ -99,8 +140,8 @@ class Skocko extends React.Component {
           usedUsersGuess[j] === 0
         ) {
           noOfRedsAndYellows++;
-          usedArrayOfsolutions[j] = 1;
-          usedUsersGuess[i] = 1;
+          usedArrayOfsolutions[i] = 1;
+          usedUsersGuess[j] = 1;
           break;
         }
       }
@@ -111,7 +152,7 @@ class Skocko extends React.Component {
       }
     }
     noOfYellows = noOfRedsAndYellows - noOfReds;
-    console.log(noOfFlavours);
+    // console.log(noOfFlavours);
     noOfGreys = 4 - noOfReds - noOfYellows;
     let displayResult = [];
     for (let i = 0; i < noOfReds; i++) {
@@ -131,8 +172,14 @@ class Skocko extends React.Component {
       positionCounter: 0,
       rowCounter,
     });
+    if (rowCounter === 6) {
+      this.setState({
+        showSolutions: { visibility: "visible" },
+      });
+    }
   };
   render() {
+    let { imgArrayOfSolutions } = this.state;
     let guesses = new Array(6).fill(0);
     let generateGuesses = guesses.map((item, index) => {
       return (
@@ -141,6 +188,19 @@ class Skocko extends React.Component {
         </div>
       );
     });
+    let printSolution = imgArrayOfSolutions.map((item, index) => {
+      if (item !== "") {
+        return (
+          <div
+            style={this.state.showSolutions}
+            className="singleGuess"
+            key={index}
+          >
+            <img width="45" height="53" src={item} alt="" />
+          </div>
+        );
+      }
+    });
 
     return (
       <div>
@@ -148,14 +208,22 @@ class Skocko extends React.Component {
           Start Game
         </button>
         <GuessingContainer style={this.state.containerStyle}>
-          <div>{generateGuesses}</div>
-          <div className="confirmBtn">
-            <ConfirmButton
-              src={confirm}
-              alt="confirm"
-              onClick={this.checkSolution}
-            />
-          </div>{" "}
+          <div>
+            {generateGuesses}
+            <div style={{ marginLeft: "9px", display: "flex" }}>
+              {printSolution}
+            </div>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Timer>{this.state.countdownTime}</Timer>
+            <div className="confirmBtn">
+              <ConfirmButton
+                src={confirm}
+                alt="confirm"
+                onClick={this.checkSolution}
+              />
+            </div>
+          </div>
           {/* CARD SIGNS   */}
           <SignContainer>
             <Signs
@@ -202,12 +270,12 @@ class Skocko extends React.Component {
             </Signs>
           </SignContainer>
         </GuessingContainer>
-        {/* <pre>{JSON.stringify(this.state.positionCounter)}</pre>
+        <pre>{JSON.stringify(this.state.positionCounter)}</pre>
         <pre>{JSON.stringify(this.state.rowCounter)}</pre>
         <pre>{JSON.stringify(this.state.solutionChecked)}</pre>
         <pre>{JSON.stringify(this.state.arrayOfSolutions)}</pre>
+        <pre>{JSON.stringify(this.state.imgArrayOfSolutions)}</pre>
         <pre>{JSON.stringify(this.state.oneLineGuess)}</pre>
-        */}
       </div>
     );
   }

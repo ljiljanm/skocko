@@ -8,4 +8,5 @@ import ReactDom from "react-dom";
 // import Cyclic from "./cyclic/Cyclic";
 import Skocko from "./skocko/Skocko";
 import "./skocko/style.css";
+// import App from "./App";
 ReactDom.render(<Skocko />, document.getElementById("root"));

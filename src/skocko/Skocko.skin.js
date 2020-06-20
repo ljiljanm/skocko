@@ -5,8 +5,8 @@ export const GuessingContainer = styled("div")`
   border-radius: 4px;
   border: 2px solid green;
   margin-top: 15px;
-  width: 287px;
-  height: 475px;
+  width: 290px;
+  height: 555px;
   padding: 0;
 `;
 
@@ -25,4 +25,10 @@ export const Signs = styled("div")`
   width: 45px;
   margin-right: 1px;
   height: 53px;
+`;
+
+export const Timer = styled("div")`
+  color: red;
+  font-size: 33px;
+  margin: 10px;
 `;
