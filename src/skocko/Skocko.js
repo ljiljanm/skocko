@@ -29,14 +29,32 @@ class Skocko extends React.Component {
     solutionChecked: [false, false, false, false, false, false],
     oneLineGuess: oneLineGuess,
     countdownTime: 60,
+    timerStyle: { fontWeight: "lighter" },
   };
   showContainer = () => {
     let newStyle = { visibility: "visible" };
+
     let setIntHandler = setInterval(() => {
       this.setState({
         countdownTime: this.state.countdownTime - 1,
       });
+      if (this.state.countdownTime < 20) {
+        this.setState({
+          timerStyle: { fontWeight: "bold", color: "red" },
+        });
+      }
+      if (this.state.countdownTime < 11) {
+        this.setState({
+          timerStyle: { fontWeight: "bolder", color: "yellow" },
+        });
+      }
       if (this.state.countdownTime === 0) {
+        clearInterval(setIntHandler);
+        this.setState({
+          showSolutions: { visibility: "visible" },
+        });
+      }
+      if (this.state.showSolutions.visibility === "visible") {
         clearInterval(setIntHandler);
       }
     }, 1000);
@@ -75,10 +93,10 @@ class Skocko extends React.Component {
   };
 
   putGif = (img, imgNo) => {
-    let { imgArray, rowCounter, positionCounter } = this.state;
+    let { imgArray, rowCounter, positionCounter, showSolutions } = this.state;
     // console.log(positionCounter);
 
-    if (positionCounter <= 3) {
+    if (positionCounter <= 3 && showSolutions.visibility !== "visible") {
       imgArray[rowCounter][positionCounter].img = img;
       imgArray[rowCounter][positionCounter].imgNo = imgNo;
       positionCounter++;
@@ -151,6 +169,11 @@ class Skocko extends React.Component {
         noOfReds++;
       }
     }
+    if (noOfReds === 4) {
+      this.setState({
+        showSolutions: { visibility: "visible" },
+      });
+    }
     noOfYellows = noOfRedsAndYellows - noOfReds;
     // console.log(noOfFlavours);
     noOfGreys = 4 - noOfReds - noOfYellows;
@@ -199,7 +222,7 @@ class Skocko extends React.Component {
             <img width="45" height="53" src={item} alt="" />
           </div>
         );
-      }
+      } else return null;
     });
 
     return (
@@ -215,7 +238,9 @@ class Skocko extends React.Component {
             </div>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Timer>{this.state.countdownTime}</Timer>
+            <Timer style={this.state.timerStyle}>
+              {this.state.countdownTime}
+            </Timer>
             <div className="confirmBtn">
               <ConfirmButton
                 src={confirm}
@@ -270,12 +295,13 @@ class Skocko extends React.Component {
             </Signs>
           </SignContainer>
         </GuessingContainer>
-        <pre>{JSON.stringify(this.state.positionCounter)}</pre>
+        {/* <pre>{JSON.stringify(this.state.positionCounter)}</pre>
+        <pre>{JSON.stringify(this.state.countdownTime)}</pre>
         <pre>{JSON.stringify(this.state.rowCounter)}</pre>
         <pre>{JSON.stringify(this.state.solutionChecked)}</pre>
         <pre>{JSON.stringify(this.state.arrayOfSolutions)}</pre>
         <pre>{JSON.stringify(this.state.imgArrayOfSolutions)}</pre>
-        <pre>{JSON.stringify(this.state.oneLineGuess)}</pre>
+        <pre>{JSON.stringify(this.state.oneLineGuess)}</pre> */}
       </div>
     );
   }

@@ -28,7 +28,7 @@ export const Signs = styled("div")`
 `;
 
 export const Timer = styled("div")`
-  color: red;
+  color: #f21;
   font-size: 33px;
   margin: 10px;
 `;
