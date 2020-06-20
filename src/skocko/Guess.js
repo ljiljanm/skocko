@@ -23,6 +23,7 @@ class Guess extends React.Component {
             height="53"
             src={this.props.imgArray[this.props.row][index].img}
             alt=""
+            onClick={this.props.removeRow}
           />
         </div>
       );

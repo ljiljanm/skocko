@@ -201,13 +201,34 @@ class Skocko extends React.Component {
       });
     }
   };
+  removeRow = () => {
+    let { imgArray, rowCounter } = this.state;
+    console.log("Did it");
+    // if (imgArray[rowCounter][3].img !== "") {
+    imgArray[rowCounter] = [
+      { img: "", imgNo: "" },
+      { img: "", imgNo: "" },
+      { img: "", imgNo: "" },
+      { img: "", imgNo: "" },
+    ];
+    this.setState({
+      imgArray,
+      positionCounter: 0,
+    });
+    // }
+  };
   render() {
     let { imgArrayOfSolutions } = this.state;
     let guesses = new Array(6).fill(0);
     let generateGuesses = guesses.map((item, index) => {
       return (
         <div className="guessing" key={index}>
-          <Guess {...this.state} row={index} key={index}></Guess>
+          <Guess
+            {...this.state}
+            removeRow={this.removeRow}
+            row={index}
+            key={index}
+          ></Guess>
         </div>
       );
     });
